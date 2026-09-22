@@ -10,7 +10,7 @@ const expectedHash = 'f36cadf9122588e15c7dba88ec2bcb1473746523116431010b308a0098
 
 if (!fs.existsSync(chunkDir)) throw new Error('Release payload directory is missing.');
 const parts = fs.readdirSync(chunkDir).filter(f => /^\d+\.b64$/.test(f)).sort();
-if (parts.length !== 5) throw new Error(`Expected 5 release chunks, found ${parts.length}.`);
+if (parts.length !== 4) throw new Error(`Expected 4 release chunks, found ${parts.length}.`);
 
 const b64 = parts.map(f => fs.readFileSync(path.join(chunkDir, f), 'utf8').trim()).join('');
 const zipBuffer = Buffer.from(b64, 'base64');
