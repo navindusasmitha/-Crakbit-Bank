@@ -69,7 +69,7 @@ See `FEATURE_MATRIX_v1.6.md`, `ARCHITECTURE.md` and `TEST_REPORT_v1.6.md` for mo
 
 ## Repository payload integrity
 
-`restore-source.mjs` joins the five `.release/v1.6/*.b64` chunks, verifies the release ZIP using SHA-256 (`f36cadf9122588e15c7dba88ec2bcb1473746523116431010b308a0098612457`), extracts it locally, and restores only the large runtime source files (`server.mjs`, `v16.mjs`, `public/app.js`, `public/style.css`).
+`restore-source.mjs` joins the four `.release/v1.6/*.b64` chunks, verifies the release ZIP using SHA-256 (`f36cadf9122588e15c7dba88ec2bcb1473746523116431010b308a0098612457`), extracts it locally, and restores only the large runtime source files (`server.mjs`, `v16.mjs`, `public/app.js`, `public/style.css`).
 
 ## Simulator boundary
 
