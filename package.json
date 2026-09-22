@@ -1,0 +1,14 @@
+{
+  "name": "crakbit-bank-core-operations-suite",
+  "version": "1.6.0",
+  "private": true,
+  "type": "module",
+  "description": "Local core-banking and operations simulator with product factory, interest/loan depth, ALM, operations controls, resilience, digital/corporate banking and double-entry accounting.",
+  "scripts": {
+    "start": "node --no-warnings server.mjs",
+    "dev": "node --no-warnings --watch server.mjs",
+    "reset": "node --no-warnings reset-db.mjs",
+    "check": "node --check server.mjs && node --check v16.mjs && node --check public/app.js"
+  },
+  "engines": {"node": ">=22.5.0"}
+}

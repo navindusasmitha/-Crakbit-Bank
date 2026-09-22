@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const __dirname=path.dirname(fileURLToPath(import.meta.url));
+const data=path.join(__dirname,'data');
+const db=path.join(data,'crakbit-bank.sqlite');
+for (const f of [db,db+'-wal',db+'-shm',path.join(data,'port.txt')]) if(fs.existsSync(f)) fs.rmSync(f,{force:true});
+const docs=path.join(data,'kyc-documents');
+if(fs.existsSync(docs)) for(const f of fs.readdirSync(docs)) fs.rmSync(path.join(docs,f),{recursive:true,force:true});
+console.log('Database reset complete. KYC working files were cleared; backups were preserved. Start the server to create a fresh database.');

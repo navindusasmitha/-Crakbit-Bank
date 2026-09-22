@@ -1,0 +1,9 @@
+{
+  "name": "Crakbit Bank Enterprise",
+  "short_name": "Crakbit Bank",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0b0d0f",
+  "description": "Crakbit Bank enterprise banking simulator"
+}
