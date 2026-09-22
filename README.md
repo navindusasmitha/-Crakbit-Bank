@@ -1,6 +1,19 @@
 # Crakbit Bank — Core Banking & Operations Suite v1.6
 
-Crakbit Bank v1.6 is a local banking-platform simulator focused on deeper core-banking behaviour, controlled branch operations, accounting integrity, enterprise risk, digital banking, corporate banking and operational resilience. It keeps the v1.5 enterprise modules and adds a new v1.6 core depth layer.
+Crakbit Bank v1.6 is a local banking-platform simulator focused on core-banking depth, branch operations, double-entry accounting, digital and corporate banking, payments, treasury, risk, compliance, reconciliation and operational resilience.
+
+## Quick start from GitHub
+
+This repository includes the complete v1.6 release payload under `.release/v1.6/`. Large application source files are restored from that verified payload on the first run.
+
+### Windows
+
+1. Clone or download this repository.
+2. Run `CHECK_SYSTEM.cmd` — it automatically restores the application source when needed and validates it.
+3. Run `START_CRAKBIT_BANK.cmd`.
+4. Open the URL shown by the launcher, normally `http://127.0.0.1:7979`.
+
+You can also run `RESTORE_SOURCE.cmd` manually before starting the bank.
 
 ## Requirements
 
@@ -11,14 +24,7 @@ Crakbit Bank v1.6 is a local banking-platform simulator focused on deeper core-b
 - No Prisma
 - No external database server
 
-The package uses Node.js built-ins and SQLite. Default port is **7979**; the launcher automatically moves to the next available port if required.
-
-## Start
-
-1. Extract the ZIP to a new folder.
-2. Run `CHECK_SYSTEM.cmd`.
-3. Run `START_CRAKBIT_BANK.cmd`.
-4. Open the URL shown by the launcher (normally `http://127.0.0.1:7979`).
+The simulator uses Node.js built-ins and SQLite. Port **7979** is preferred; the server can move to the next available port if needed.
 
 ## Demo login
 
@@ -35,84 +41,36 @@ Password for all demo users: `ChangeMe123!`
 
 MFA is enabled. The local demo displays the OTP after password verification.
 
-## v1.6 additions
+## v1.6 highlights
 
-### Product & core-processing depth
-- Product Factory for deposit, term-deposit and loan products.
-- Product currency, minimum balance, eligibility, rate, penalty and tier-rule configuration.
-- Interest engine with daily-accrual simulation and tracked accrual runs.
-- Pricing/fee-rule catalogue with segment/product targeting, waivers and caps model.
-- Tax/withholding rule catalogue.
-- Loan restructure workflow with independent maker/checker approval.
-- Collateral register with market value, forced-sale value, valuation/insurance dates and LTV data.
-- Standing-order/direct-debit mandates with frequency, next-run and retry controls.
-- Cheque Clearing v2: inward/outward presentation, signature status, clear/return/hold and return reasons.
-- Nostro/Vostro correspondent-account register.
-- Inter-branch settlement positions.
-- Suspense-account investigation and resolution workflow.
+- Product Factory for deposit, FD and loan products
+- Interest engine and pricing/tax rule catalogues
+- Loan restructuring + maker/checker and collateral management
+- Standing orders / direct-debit mandates
+- Cheque Clearing v2
+- Nostro/Vostro and inter-branch settlement
+- Suspense investigation/resolution
+- Manual GL adjustments with independent approval
+- Business-date and EOD v2 controls
+- Branch open/close, teller transfers and cash denominations
+- Operational limits and multi-approval chains
+- Customer 360 v2, relationship graph and UBO register
+- Relationship/PEP/watchlist screening simulator
+- Treasury dealer limits and blotter
+- ALM/liquidity gaps, NPL and profitability dashboards
+- Exception Management Center
+- AES-256-GCM field-level secret vault
+- Restore-point simulation, migration history and load-test mode
+- Light/dark professional UI, command palette and keyboard shortcuts
 
-### Accounting, EOD and operational controls
-- Manual GL adjustment workflow with evidence reference and maker-checker posting.
-- Business-date control with close and next-business-day advance.
-- Weekend/holiday calendar model.
-- EOD v2 blocking gates for open tills and high/critical operational exceptions.
-- Operational-limit matrix by role/branch/product/channel/transaction type.
-- Branch opening/closing workflow by business date.
-- Teller-to-teller cash transfer.
-- Cash denomination tracking for vault/till owners.
-- Cash shortage/excess exception workflow.
-- Four-eyes / multi-approval chain catalogue and delegation model.
-- Role templates for branch operations, credit and supervision.
+Earlier modules remain included: Internet Banking, corporate banking, payroll/bulk payments, ATM/POS/QR simulators, merchants, CEFTS/RTGS-style payments, SWIFT-style messaging, cards, KYC/AML, fraud, sanctions simulator, loans, fixed deposits, teller/vault operations, GL/reconciliation, service desk, API gateway, webhooks, notifications, PWA, BI, backup/DR and immutable audit chain.
 
-### Customer intelligence and financial-crime depth
-- Customer 360 v2 with products, loans, collateral, cases and service history.
-- Customer relationship graph.
-- Beneficial-ownership register.
-- Relationship/watchlist/PEP screening simulator.
-- Universal search across customers, accounts, loans, cases and transactions.
-- Case SLA matrix and service-escalation model.
-- Customer/bank secure messaging.
+See `FEATURE_MATRIX_v1.6.md`, `ARCHITECTURE.md` and `TEST_REPORT_v1.6.md` for more detail.
 
-### Treasury, ALM and profitability
-- Treasury dealer-limit register.
-- Dealer blotter for FX spot/forward and money-market simulations.
-- FX rate board retained from v1.5.
-- ALM maturity-bucket gap view.
-- Liquidity metrics and loan/deposit ratio.
-- Branch profitability view.
-- Product profitability view.
-- Customer profitability model.
-- NPL ratio / arrears portfolio indicators.
-- Regulatory-style liquidity, credit and large-exposure pack.
-- Exportable CSV management pack.
+## Repository payload integrity
 
-### Resilience, governance and security
-- Exception Management Center with retry/resolve controls.
-- Data-retention policy register.
-- Schema migration/version history.
-- Encrypted local secret vault using AES-256-GCM field-level encryption.
-- Local master-key file generated at first startup.
-- Point-in-time restore-point simulation via SQLite checkpoint copy.
-- API performance metrics and slow-endpoint view.
-- Synthetic 10K/100K load-test mode.
-- Existing scheduled backups and DR simulation retained.
-- Immutable audit hash chain retained.
-- High-risk admin maker/checker retained.
+`restore-source.mjs` joins the five `.release/v1.6/*.b64` chunks, verifies the release ZIP using SHA-256 (`f36cadf9122588e15c7dba88ec2bcb1473746523116431010b308a0098612457`), extracts it locally, and restores only the large runtime source files (`server.mjs`, `v16.mjs`, `public/app.js`, `public/style.css`).
 
-### UX / accessibility
-- Professional black/white/graphite interface retained.
-- Light/dark mode.
-- Command palette: **Ctrl/Cmd + K**.
-- Dashboard shortcut: **Alt + 1**.
-- Stronger keyboard focus indicators.
-- Responsive tablet/touch controls.
-- English/Sinhala preference retained.
-- Secure-message center for retail and corporate portals.
+## Simulator boundary
 
-## v1.5 and earlier retained
-
-Corporate banking, payroll/bulk payments, treasury, trade finance, credit risk, collections, fraud, sanctions/PEP simulator, enterprise case management, GL, reconciliation, service desk, document management, digital signatures, API gateway, webhooks, notification gateway, PWA, BI, backup/DR, monitoring/jobs, multi-branch/multi-currency, receipt/barcode verification, customer consent, data archive/audit chain, ATM/POS/QR, merchants, CEFTS/RTGS-style transfers, SWIFT-style messages, Internet Banking, MFA/devices/sessions, KYC/onboarding, cards, teller/vault, loans, fixed deposits and double-entry accounting.
-
-## Security / simulator boundary
-
-This package is a **local engineering and banking-workflow simulator**, not production core-banking software for a licensed bank. SWIFT, RTGS/CEFTS, Visa/Mastercard, sanctions/PEP data, SMS/email delivery and regulatory reports are simulated. The AES-GCM secret vault protects values stored through that vault; the SQLite database file itself is **not fully encrypted**. A real deployment requires HSM/KMS, certified rails, regulator-specific controls, production IAM, independent security testing, HA/DR infrastructure and formal operational governance.
+This is a local engineering and banking-workflow simulator, not certified production core-banking software. SWIFT, RTGS/CEFTS, Visa/Mastercard, sanctions/PEP feeds, regulator submissions, SMS/email delivery and HSM/KMS are simulated or represented as integration boundaries. Production deployment requires certified integrations, production IAM/key management, independent security testing, HA/DR infrastructure and regulator-specific governance.

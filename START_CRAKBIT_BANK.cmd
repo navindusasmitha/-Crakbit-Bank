@@ -4,19 +4,30 @@ cd /d "%~dp0"
 title Crakbit Bank Launcher
 cls
 echo ================================================
-echo  Crakbit Bank - Core Banking & Operations Suite v1.6 (Port 7979)
+echo  Crakbit Bank - Core Banking Suite v1.6
 echo ================================================
 where node >nul 2>nul
 if errorlevel 1 (
-  echo [ERROR] Node.js was not found in PATH.
-  echo Install Node.js 22.5 or newer, then reopen this folder.
+  echo [ERROR] Node.js 22.5 or newer was not found in PATH.
   pause
   exit /b 1
 )
 for /f "tokens=*" %%v in ('node -v') do echo Node: %%v
+
+if not exist "server.mjs" (
+  echo [INFO] Application source is packed in this GitHub repository.
+  echo [INFO] Restoring verified v1.6 source files now...
+  node --no-warnings restore-source.mjs
+  if errorlevel 1 (
+    echo [ERROR] Source restoration failed. You can also run RESTORE_SOURCE.cmd manually.
+    pause
+    exit /b 1
+  )
+)
+
 if exist "data\port.txt" del /q "data\port.txt" >nul 2>nul
 echo.
-echo Starting Crakbit Bank v1.6 Core Banking Suite on port 7979...
+echo Starting Crakbit Bank v1.6 on port 7979...
 set PORT=7979
 start "Crakbit Bank Server" cmd /k "node --no-warnings server.mjs"
 set BANKPORT=
